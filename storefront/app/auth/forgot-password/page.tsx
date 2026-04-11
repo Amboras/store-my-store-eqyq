@@ -2,16 +2,29 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Mail } from 'lucide-react'
+import { ArrowLeft, Mail, Loader2 } from 'lucide-react'
+import { medusaClient } from '@/lib/medusa-client'
+import { toast } from 'sonner'
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: Wire to Medusa password reset when available
-    setSubmitted(true)
+    setLoading(true)
+
+    try {
+      await medusaClient.auth.resetPassword('customer', 'emailpass', {
+        identifier: email,
+      })
+    } catch {
+      // Don't reveal whether the email exists — always show success
+    } finally {
+      setLoading(false)
+      setSubmitted(true)
+    }
   }
 
   if (submitted) {
@@ -64,9 +77,17 @@ export default function ForgotPasswordPage() {
 
           <button
             type="submit"
-            className="w-full bg-foreground text-background py-3.5 text-sm font-semibold uppercase tracking-wide hover:opacity-90 transition-opacity"
+            disabled={loading}
+            className="w-full bg-foreground text-background py-3.5 text-sm font-semibold uppercase tracking-wide hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2"
           >
-            Send Reset Link
+            {loading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Sending...
+              </>
+            ) : (
+              'Send Reset Link'
+            )}
           </button>
         </form>
 

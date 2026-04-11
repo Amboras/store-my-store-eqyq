@@ -4,6 +4,25 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { medusaClient } from '@/lib/medusa-client'
 import { useRouter } from 'next/navigation'
 
+const AUTH_TOKEN_KEY = 'medusa_auth_token'
+
+/**
+ * Clear auth token from localStorage. Called on logout and on 401 recovery.
+ */
+function clearAuthToken() {
+  if (typeof window === 'undefined') return
+  localStorage.removeItem(AUTH_TOKEN_KEY)
+}
+
+/**
+ * Clear cart from localStorage. Called on logout to prevent cart leaking
+ * between users.
+ */
+function clearCartId() {
+  if (typeof window === 'undefined') return
+  localStorage.removeItem('medusa_cart_id')
+}
+
 export function useAuth() {
   const queryClient = useQueryClient()
   const router = useRouter()
@@ -15,7 +34,11 @@ export function useAuth() {
       try {
         const { customer } = await medusaClient.store.customer.retrieve()
         return customer
-      } catch {
+      } catch (error: any) {
+        // If 401/unauthorized, clear stale token so we don't keep retrying
+        if (error?.status === 401 || error?.message?.includes('Unauthorized')) {
+          clearAuthToken()
+        }
         return null
       }
     },
@@ -35,12 +58,15 @@ export function useAuth() {
         throw new Error('Unexpected auth response')
       }
 
-      // SDK handles token storage automatically
+      // SDK stores token in localStorage automatically (configured in medusa-client.ts)
       const { customer } = await medusaClient.store.customer.retrieve()
       return customer
     },
     onSuccess: (customer) => {
       queryClient.setQueryData(['customer'], customer)
+      // Invalidate queries that depend on auth so they refetch with new token
+      queryClient.invalidateQueries({ queryKey: ['orders'] })
+      queryClient.invalidateQueries({ queryKey: ['addresses'] })
     },
   })
 
@@ -75,7 +101,7 @@ export function useAuth() {
         }
       }
 
-      // Step 2: Create customer record
+      // Step 2: Create customer record (token is now in localStorage via SDK)
       const { customer } = await medusaClient.store.customer.create({
         first_name,
         last_name,
@@ -92,11 +118,27 @@ export function useAuth() {
   // Logout
   const logout = useMutation({
     mutationFn: async () => {
-      await medusaClient.auth.logout()
+      try {
+        await medusaClient.auth.logout()
+      } catch {
+        // Even if API call fails, clear local state
+      }
+      // Always clear tokens and cart regardless of API success
+      clearAuthToken()
+      clearCartId()
     },
     onSuccess: () => {
       queryClient.setQueryData(['customer'], null)
       queryClient.invalidateQueries({ queryKey: ['customer'] })
+      queryClient.invalidateQueries({ queryKey: ['cart'] })
+      queryClient.invalidateQueries({ queryKey: ['orders'] })
+      queryClient.invalidateQueries({ queryKey: ['addresses'] })
+      router.push('/')
+    },
+    onError: () => {
+      // Fallback: clear everything even if mutation "failed"
+      queryClient.setQueryData(['customer'], null)
+      queryClient.invalidateQueries()
       router.push('/')
     },
   })
