@@ -1,0 +1,29 @@
+# Git
+.git
+.gitignore
+.github
+
+# IDE
+.idea
+.claude
+
+# Node deps and build output (only package.json + bun.lock are copied in Dockerfile)
+storefront/node_modules
+storefront/.next
+storefront/out
+storefront/build
+storefront/coverage
+
+# Env files (injected at runtime, never in image)
+storefront/.env
+storefront/.env.local
+storefront/.env*.local
+
+# TypeScript artifacts
+storefront/tsconfig.tsbuildinfo
+storefront/next-env.d.ts
+
+# Logs and OS
+*.log
+.DS_Store
+*.pem
