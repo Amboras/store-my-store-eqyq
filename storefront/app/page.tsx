@@ -34,13 +34,13 @@ export default function HomePage() {
           {/* Text Content */}
           <div className="space-y-6 animate-fade-in-up">
             <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">
-              New Collection
+              Clinically-Inspired Scalp Care
             </p>
             <h1 className="text-display font-heading font-semibold text-balance">
-              Elevate Your Everyday
+              Clear Scalp. Clearer Confidence.
             </h1>
             <p className="text-lg text-muted-foreground max-w-md leading-relaxed">
-              Thoughtfully designed products that bring beauty and function to your daily rituals.
+              An acne-fighting shampoo formulated with salicylic acid and tea tree oil — to gently clear scalp breakouts and restore balance.
             </p>
             <div className="flex flex-wrap gap-4 pt-2">
               <Link
@@ -52,11 +52,11 @@ export default function HomePage() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                href="/about"
+                href="/collections/acne-care"
                 className="inline-flex items-center gap-2 border-brand-primary border px-8 py-3.5 text-sm font-semibold uppercase tracking-wide hover:bg-brand-primary hover:text-white transition-colors"
                 prefetch={true}
               >
-                Our Story
+                Save With Bundles
               </Link>
             </div>
           </div>
@@ -64,8 +64,8 @@ export default function HomePage() {
           {/* Hero Image */}
           <div className="relative aspect-[4/5] lg:aspect-[3/4] bg-muted rounded-sm overflow-hidden animate-fade-in">
             <Image
-              src={HERO_PLACEHOLDER}
-              alt="Hero - New Collection"
+              src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=1200&q=80"
+              alt="Clear Skin Acne Shampoo"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
@@ -116,13 +116,12 @@ export default function HomePage() {
               />
             </div>
             <div className="space-y-6 lg:max-w-md">
-              <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">Our Philosophy</p>
+              <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">Why It Works</p>
               <h2 className="text-h2 font-heading font-semibold">
-                Crafted With Intention
+                Dermatologist-Inspired Formula
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                Every product in our collection is chosen for its quality, design, and the story behind it.
-                We believe in fewer, better things — pieces that last and bring joy to everyday moments.
+                Salicylic acid unclogs follicles, tea tree oil fights bacteria, and niacinamide calms redness — all in a sulfate-free, vegan base that's gentle enough for daily use. Most customers see results in 2–4 weeks of consistent use.
               </p>
               <Link
                 href="/about"
@@ -145,7 +144,7 @@ export default function HomePage() {
               <Truck className="h-6 w-6 flex-shrink-0" strokeWidth={1.5} />
               <div>
                 <p className="text-sm font-semibold">Free Shipping</p>
-                <p className="text-xs text-muted-foreground">On orders over $75</p>
+                <p className="text-xs text-muted-foreground">On orders over $75 — bundles ship free</p>
               </div>
             </div>
             <div className="flex items-center gap-4 justify-center">
