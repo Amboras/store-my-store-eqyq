@@ -63,10 +63,10 @@ export default function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
+        className={`sticky top-0 z-40 w-full transition-all duration-300 text-white ${
           isScrolled
-            ? 'bg-background/95 backdrop-blur-md border-b shadow-sm'
-            : 'bg-background border-b'
+            ? 'bg-gradient-to-r from-[#C9261A] via-[#D9302A] to-[#FF5A3C] backdrop-blur-md shadow-lg'
+            : 'bg-gradient-to-r from-[#C9261A] via-[#D9302A] to-[#FF5A3C] shadow-md'
         }`}
       >
         <div className="container-custom">
@@ -74,7 +74,7 @@ export default function Header() {
             {/* Mobile menu toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="p-2 -ml-2 lg:hidden hover:opacity-70 transition-opacity"
+              className="p-2 -ml-2 lg:hidden text-white hover:opacity-80 transition-opacity"
               aria-label="Open menu"
             >
               <Menu className="h-5 w-5" />
@@ -82,27 +82,29 @@ export default function Header() {
 
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 group">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#FF5A3C] to-[#C9261A] text-white font-heading font-bold text-sm shadow-sm group-hover:shadow-md transition-shadow">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#C9261A] font-heading font-bold text-sm shadow-md group-hover:shadow-lg transition-shadow">
                 F
               </span>
-              <span className="font-heading text-2xl font-bold tracking-tight text-[#C9261A]">
+              <span className="font-heading text-2xl font-bold tracking-tight text-white drop-shadow-sm">
                 Floor
               </span>
             </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8">
-              <Link href="/products" className="text-sm tracking-wide uppercase link-underline py-1" prefetch={true}>
+              <Link href="/products" className="text-sm tracking-wide uppercase text-white/95 hover:text-white transition-colors py-1 relative group" prefetch={true}>
                 Shop All
+                <span className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </Link>
               {collections?.slice(0, 4).map((collection: any) => (
                 <Link
                   key={collection.id}
                   href={`/collections/${collection.handle}`}
-                  className="text-sm tracking-wide uppercase link-underline py-1"
+                  className="text-sm tracking-wide uppercase text-white/95 hover:text-white transition-colors py-1 relative group"
                   prefetch={true}
                 >
                   {collection.title}
+                  <span className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
                 </Link>
               ))}
             </nav>
@@ -111,26 +113,26 @@ export default function Header() {
             <div className="flex items-center gap-1">
               <Link
                 href="/search"
-                className="p-2.5 hover:opacity-70 transition-opacity"
+                className="p-2.5 text-white hover:opacity-80 transition-opacity"
                 aria-label="Search"
               >
                 <Search className="h-5 w-5" />
               </Link>
               <Link
                 href={isLoggedIn ? '/account' : '/auth/login'}
-                className="p-2.5 hover:opacity-70 transition-opacity hidden sm:block"
+                className="p-2.5 text-white hover:opacity-80 transition-opacity hidden sm:block"
                 aria-label={isLoggedIn ? 'Account' : 'Sign in'}
               >
                 {isLoggedIn ? <User className="h-5 w-5" /> : <LogIn className="h-5 w-5" />}
               </Link>
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-2.5 hover:opacity-70 transition-opacity"
+                className="relative p-2.5 text-white hover:opacity-80 transition-opacity"
                 aria-label="Shopping bag"
               >
                 <ShoppingBag className="h-5 w-5" />
                 {itemCount > 0 && (
-                  <span className="absolute top-0.5 right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-foreground text-[10px] font-bold text-background">
+                  <span className="absolute top-0.5 right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-white text-[10px] font-bold text-[#C9261A]">
                     {itemCount}
                   </span>
                 )}
