@@ -77,36 +77,36 @@ export default function BundleOffer({ variantId, unitPrice, currency, productTit
               key={bundle.qty}
               onClick={() => setSelected(bundle.qty)}
               type="button"
-              className={`relative text-left rounded-sm border-2 p-4 transition-all ${
+              className={`relative text-left rounded-xl border-2 p-4 transition-all ${
                 isSelected
-                  ? 'border-foreground bg-foreground/[0.03] shadow-sm'
-                  : 'border-border hover:border-foreground/40'
+                  ? 'border-[#C9261A] bg-gradient-to-br from-[#FFF1E6] to-[#FFE0CC] shadow-md'
+                  : 'border-[#C9261A]/15 bg-white hover:border-[#C9261A]/40 hover:shadow-sm'
               }`}
             >
               {bundle.highlight && (
-                <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-accent text-white text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-sm">
+                <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-br from-[#FF5A3C] to-[#C9261A] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-sm">
                   {bundle.note}
                 </span>
               )}
 
               <div className="flex items-start justify-between mb-2">
                 <div>
-                  <p className="text-sm font-semibold">{bundle.label}</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-sm font-bold text-[#3A0F08]">{bundle.label}</p>
+                  <p className="text-xs text-[#7A1F12]/70">
                     {bundle.qty} {bundle.qty === 1 ? 'item' : 'items'}
                   </p>
                 </div>
                 <div
                   className={`h-4 w-4 rounded-full border-2 flex items-center justify-center transition-colors ${
-                    isSelected ? 'border-foreground bg-foreground' : 'border-border'
+                    isSelected ? 'border-[#C9261A] bg-[#C9261A]' : 'border-[#C9261A]/30'
                   }`}
                 >
-                  {isSelected && <div className="h-1.5 w-1.5 rounded-full bg-background" />}
+                  {isSelected && <div className="h-1.5 w-1.5 rounded-full bg-white" />}
                 </div>
               </div>
 
               {bundle.discount > 0 && (
-                <div className="inline-block bg-accent/10 text-accent text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-sm mb-2">
+                <div className="inline-block bg-[#C9261A]/10 text-[#C9261A] text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full mb-2">
                   Save {bundle.discount}%
                 </div>
               )}
