@@ -5,10 +5,14 @@ export const revalidate = 3600 // ISR: revalidate every hour
 import { medusaServerClient } from '@/lib/medusa-client'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Truck, RotateCcw, Shield, ChevronRight } from 'lucide-react'
+import { Truck, RotateCcw, Shield, ChevronRight, Star } from 'lucide-react'
 import ProductActions from '@/components/product/product-actions'
 import ProductAccordion from '@/components/product/product-accordion'
 import { ProductViewTracker } from '@/components/product/product-view-tracker'
+import BundleOffer from '@/components/product/bundle-offer'
+import TrustBadges from '@/components/product/trust-badges'
+import ProductReviews from '@/components/product/product-reviews'
+import RelatedProducts from '@/components/product/related-products'
 import { getProductPlaceholder } from '@/lib/utils/placeholder-images'
 import { type VariantExtension } from '@/components/product/product-price'
 
@@ -99,13 +103,17 @@ export default async function ProductPage({
 
   const allImages = [
     ...(product.thumbnail ? [{ url: product.thumbnail }] : []),
-    ...(product.images || []).filter((img: any) => img.url !== product.thumbnail),
+    ...(product.images || []).filter((img: { url: string }) => img.url !== product.thumbnail),
   ]
 
   // Use placeholder if no images
   const displayImages = allImages.length > 0
     ? allImages
     : [{ url: getProductPlaceholder(product.id) }]
+
+  const firstVariant = product.variants?.[0]
+  const firstVariantPrice = firstVariant?.calculated_price?.calculated_amount ?? null
+  const firstVariantCurrency = firstVariant?.calculated_price?.currency_code || 'usd'
 
   return (
     <>
@@ -139,7 +147,7 @@ export default async function ProductPage({
 
             {displayImages.length > 1 && (
               <div className="grid grid-cols-4 gap-3">
-                {displayImages.slice(1, 5).map((image: any, idx: number) => (
+                {displayImages.slice(1, 5).map((image: { url: string }, idx: number) => (
                   <div
                     key={idx}
                     className="relative aspect-[3/4] overflow-hidden bg-muted rounded-sm"
@@ -167,6 +175,23 @@ export default async function ProductPage({
                 </p>
               )}
               <h1 className="text-h2 font-heading font-semibold">{product.title}</h1>
+
+              {/* Inline rating */}
+              <a
+                href="#reviews"
+                className="mt-3 inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <span className="flex items-center gap-0.5">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <Star
+                      key={i}
+                      className="h-3.5 w-3.5 fill-accent text-accent"
+                      strokeWidth={1.5}
+                    />
+                  ))}
+                </span>
+                <span>4.8 · 236 reviews</span>
+              </a>
             </div>
 
             <ProductViewTracker
@@ -179,6 +204,14 @@ export default async function ProductPage({
 
             {/* Variant Selector + Price + Add to Cart (client component) */}
             <ProductActions product={product} variantExtensions={variantExtensions} />
+
+            {/* Bundle & Save offer */}
+            <BundleOffer
+              variantId={firstVariant?.id || null}
+              unitPrice={firstVariantPrice}
+              currency={firstVariantCurrency}
+              productTitle={product.title}
+            />
 
             {/* Trust Signals */}
             <div className="grid grid-cols-3 gap-4 py-6 border-t">
@@ -204,6 +237,15 @@ export default async function ProductPage({
           </div>
         </div>
       </div>
+
+      {/* Trust badges row */}
+      <TrustBadges />
+
+      {/* Reviews */}
+      <ProductReviews productTitle={product.title} />
+
+      {/* Related products */}
+      <RelatedProducts currentProductId={product.id} />
     </>
   )
 }
