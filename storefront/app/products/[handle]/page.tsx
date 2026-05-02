@@ -5,7 +5,7 @@ export const revalidate = 3600 // ISR: revalidate every hour
 import { medusaServerClient } from '@/lib/medusa-client'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Truck, RotateCcw, Shield, ChevronRight, Star, Flame } from 'lucide-react'
+import { Truck, RotateCcw, Shield, ChevronRight, Star, Flame, Zap, Droplets, Battery, Award } from 'lucide-react'
 import ProductActions from '@/components/product/product-actions'
 import ProductAccordion from '@/components/product/product-accordion'
 import { ProductViewTracker } from '@/components/product/product-view-tracker'
