@@ -46,13 +46,16 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-block">
-              <span className="font-heading text-2xl font-semibold">
-                Store
+            <Link href="/" className="inline-flex items-center gap-2">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#FF5A3C] to-[#C9261A] text-white font-heading font-bold text-sm shadow-sm">
+                F
+              </span>
+              <span className="font-heading text-2xl font-bold text-[#C9261A]">
+                Floor
               </span>
             </Link>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xs">
-              Curated products crafted with care. Quality you can feel, design you can see.
+              Safety, comfort, and confidence — designed for the everyday. Bold by Floor.
             </p>
           </div>
 
