@@ -81,9 +81,12 @@ export default function Header() {
             </button>
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
-              <span className="font-heading text-2xl font-semibold tracking-tight">
-                Store
+            <Link href="/" className="flex items-center gap-2 group">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#FF5A3C] to-[#C9261A] text-white font-heading font-bold text-sm shadow-sm group-hover:shadow-md transition-shadow">
+                F
+              </span>
+              <span className="font-heading text-2xl font-bold tracking-tight text-[#C9261A]">
+                Floor
               </span>
             </Link>
 
