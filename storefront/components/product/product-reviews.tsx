@@ -184,7 +184,7 @@ export default function ProductReviews({ productTitle }: ProductReviewsProps) {
 
             <button
               type="button"
-              className="w-full py-3 text-xs font-semibold uppercase tracking-wider border border-foreground hover:bg-foreground hover:text-background transition-colors"
+              className="w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-br from-[#FF5A3C] to-[#C9261A] text-white shadow-md hover:shadow-lg hover:from-[#FF6B4F] hover:to-[#D9302A] transition-all"
             >
               Write a Review
             </button>
