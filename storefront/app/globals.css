@@ -4,16 +4,17 @@
 
 @layer base {
   :root {
-    --background: 40 20% 98%;
-    --foreground: 0 0% 10%;
-    --muted: 40 10% 94%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 35 40% 50%;
+    /* Floor — warm red/orange brand palette */
+    --background: 28 80% 97%;            /* very soft peach */
+    --foreground: 12 35% 14%;            /* deep warm near-black */
+    --muted: 28 60% 93%;                 /* light peach */
+    --muted-foreground: 12 20% 38%;      /* muted warm */
+    --accent: 14 85% 52%;                /* vibrant red-orange */
     --accent-foreground: 0 0% 100%;
-    --border: 40 10% 88%;
-    --ring: 35 40% 50%;
-    --primary: 0 0% 10%;
-    --primary-foreground: 0 0% 98%;
+    --border: 24 40% 85%;                /* warm border */
+    --ring: 14 85% 52%;
+    --primary: 8 78% 46%;                /* signature red */
+    --primary-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
@@ -23,16 +24,16 @@
   }
 
   .dark {
-    --background: 0 0% 6%;
-    --foreground: 40 20% 94%;
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 55%;
-    --accent: 35 45% 55%;
+    --background: 12 30% 8%;
+    --foreground: 28 60% 95%;
+    --muted: 12 20% 14%;
+    --muted-foreground: 28 20% 65%;
+    --accent: 14 85% 56%;
     --accent-foreground: 0 0% 100%;
-    --border: 0 0% 16%;
-    --ring: 35 45% 55%;
-    --primary: 40 20% 94%;
-    --primary-foreground: 0 0% 6%;
+    --border: 12 20% 20%;
+    --ring: 14 85% 56%;
+    --primary: 8 78% 56%;
+    --primary-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
   }
@@ -70,6 +71,14 @@
   }
   .link-underline:hover::after {
     @apply w-full;
+  }
+
+  /* Floor signature warm gradient — used on hero & product page bg */
+  .bg-floor-warm {
+    background:
+      radial-gradient(1200px 600px at 0% 0%, rgba(255, 138, 76, 0.28), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(255, 90, 60, 0.22), transparent 60%),
+      linear-gradient(180deg, #FFEDD9 0%, #FFE0C2 50%, #FFD4AE 100%);
   }
 
   /* Brand color utilities - uses colors from Store.metadata.brand */
