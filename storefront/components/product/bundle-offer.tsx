@@ -56,12 +56,12 @@ export default function BundleOffer({ variantId, unitPrice, currency, productTit
   }
 
   return (
-    <div className="border-y py-8 -mx-4 px-4 sm:mx-0 sm:px-0">
+    <div>
       <div className="flex items-center gap-2 mb-1">
-        <Sparkles className="h-4 w-4 text-accent" strokeWidth={1.8} />
-        <h2 className="text-xs uppercase tracking-[0.18em] font-semibold">Bundle &amp; Save</h2>
+        <Sparkles className="h-4 w-4 text-[#C9261A]" strokeWidth={1.8} />
+        <h2 className="text-xs uppercase tracking-[0.18em] font-bold text-[#C9261A]">Bundle &amp; Save</h2>
       </div>
-      <p className="text-sm text-muted-foreground mb-5">
+      <p className="text-sm text-[#7A1F12]/80 mb-5">
         Buy more, save more. Free shipping on every bundle.
       </p>
 
