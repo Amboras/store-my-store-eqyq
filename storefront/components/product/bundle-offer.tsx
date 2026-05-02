@@ -132,8 +132,10 @@ export default function BundleOffer({ variantId, unitPrice, currency, productTit
       <button
         onClick={handleAdd}
         disabled={adding}
-        className={`mt-5 w-full py-3.5 text-sm font-semibold uppercase tracking-wide transition-all flex items-center justify-center gap-2 ${
-          justAdded ? 'bg-green-700 text-white' : 'bg-foreground text-background hover:opacity-90'
+        className={`mt-5 w-full py-3.5 rounded-xl text-sm font-bold uppercase tracking-wide transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg ${
+          justAdded
+            ? 'bg-green-700 text-white'
+            : 'bg-gradient-to-br from-[#FF5A3C] to-[#C9261A] text-white hover:from-[#FF6B4F] hover:to-[#D9302A]'
         }`}
       >
         {adding ? (
