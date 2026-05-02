@@ -126,13 +126,13 @@ export default function ProductReviews({ productTitle }: ProductReviewsProps) {
   }
 
   return (
-    <section id="reviews" className="border-t">
+    <section id="reviews" className="border-t border-[#C9261A]/10 bg-gradient-to-b from-transparent to-[#FFE0C2]/40">
       <div className="container-custom py-12 lg:py-16">
         <div className="text-center mb-10">
-          <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">
+          <p className="text-xs uppercase tracking-[0.18em] text-[#C9261A] font-bold mb-2">
             Customer Reviews
           </p>
-          <h2 className="text-h2 font-heading font-semibold">What people say about it</h2>
+          <h2 className="text-h2 font-heading font-bold text-[#3A0F08]">What people say about it</h2>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
