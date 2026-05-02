@@ -30,10 +30,10 @@ const body = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Store — Modern Commerce',
-    template: '%s | Store',
+    default: 'Floor — Bold Everyday Essentials',
+    template: '%s | Floor',
   },
-  description: 'Discover curated products crafted with care. A modern ecommerce experience.',
+  description: 'Floor — designed for confidence. Safety, comfort, and style for the everyday.',
 }
 
 export default function RootLayout({
