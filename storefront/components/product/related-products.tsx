@@ -72,20 +72,20 @@ export default async function RelatedProducts({ currentProductId }: RelatedProdu
   const extensionsByProduct = await fetchVariantExtensions(products.map((p) => p.id))
 
   return (
-    <section className="border-t">
+    <section className="border-t border-[#C9261A]/10">
       <div className="container-custom py-12 lg:py-16">
         <div className="flex items-end justify-between mb-8">
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">
+            <p className="text-xs uppercase tracking-[0.18em] text-[#C9261A] font-bold mb-2">
               You may also like
             </p>
-            <h2 className="text-h2 font-heading font-semibold">Pairs well with</h2>
+            <h2 className="text-h2 font-heading font-bold text-[#3A0F08]">Pairs well with</h2>
           </div>
           <Link
             href="/products"
-            className="hidden sm:inline-block text-sm uppercase tracking-wider link-underline"
+            className="hidden sm:inline-block text-sm uppercase tracking-wider font-semibold text-[#C9261A] hover:text-[#7A1F12] transition-colors"
           >
-            View all
+            View all →
           </Link>
         </div>
 
