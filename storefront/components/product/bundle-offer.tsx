@@ -113,14 +113,14 @@ export default function BundleOffer({ variantId, unitPrice, currency, productTit
 
               <div className="space-y-0.5">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-base font-semibold">{formatPrice(discounted, currency)}</span>
+                  <span className="text-base font-bold text-[#3A0F08]">{formatPrice(discounted, currency)}</span>
                   {bundle.discount > 0 && (
-                    <span className="text-xs text-muted-foreground line-through">
+                    <span className="text-xs text-[#7A1F12]/50 line-through">
                       {formatPrice(subtotal, currency)}
                     </span>
                   )}
                 </div>
-                <p className="text-[11px] text-muted-foreground">
+                <p className="text-[11px] text-[#7A1F12]/70">
                   {formatPrice(perUnit, currency)} / unit
                 </p>
               </div>
