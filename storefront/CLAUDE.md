@@ -188,6 +188,9 @@ Dark mode inverts backgrounds/foregrounds. Toggle via `next-themes` (class-based
 - Endpoint: `{MEDUSA_BACKEND_URL}/store/analytics/events`
 - Silently fails — never breaks the store
 
+## currency and region
+- never use another currency than the store is in native language 
+
 ## Environment Variables
 
 ```
