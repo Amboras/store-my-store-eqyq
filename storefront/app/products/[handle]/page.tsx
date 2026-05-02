@@ -205,6 +205,46 @@ export default async function ProductPage({
               </a>
             </div>
 
+            {/* Key Selling Points */}
+            <div className="grid grid-cols-2 gap-2.5">
+              <div className="flex items-start gap-2.5 rounded-xl bg-white/70 backdrop-blur-sm ring-1 ring-[#C9261A]/10 px-3 py-2.5">
+                <div className="flex-shrink-0 flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#FF5A3C] to-[#C9261A] text-white shadow-sm">
+                  <Droplets className="h-4 w-4" strokeWidth={2} />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-bold text-[#3A0F08] leading-tight">IP67 Waterproof</p>
+                  <p className="text-[11px] text-[#7A1F12]/70 leading-snug">Rain or shine, ride on</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2.5 rounded-xl bg-white/70 backdrop-blur-sm ring-1 ring-[#C9261A]/10 px-3 py-2.5">
+                <div className="flex-shrink-0 flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#FF5A3C] to-[#C9261A] text-white shadow-sm">
+                  <Battery className="h-4 w-4" strokeWidth={2} />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-bold text-[#3A0F08] leading-tight">80 km Range</p>
+                  <p className="text-[11px] text-[#7A1F12]/70 leading-snug">On a single charge</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2.5 rounded-xl bg-white/70 backdrop-blur-sm ring-1 ring-[#C9261A]/10 px-3 py-2.5">
+                <div className="flex-shrink-0 flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#FF5A3C] to-[#C9261A] text-white shadow-sm">
+                  <Zap className="h-4 w-4" strokeWidth={2} />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-bold text-[#3A0F08] leading-tight">Fast Charge</p>
+                  <p className="text-[11px] text-[#7A1F12]/70 leading-snug">0–100% in 4 hours</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2.5 rounded-xl bg-white/70 backdrop-blur-sm ring-1 ring-[#C9261A]/10 px-3 py-2.5">
+                <div className="flex-shrink-0 flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#FF5A3C] to-[#C9261A] text-white shadow-sm">
+                  <Award className="h-4 w-4" strokeWidth={2} />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-bold text-[#3A0F08] leading-tight">2-Year Warranty</p>
+                  <p className="text-[11px] text-[#7A1F12]/70 leading-snug">Full coverage included</p>
+                </div>
+              </div>
+            </div>
+
             <ProductViewTracker
               productId={product.id}
               productTitle={product.title}
