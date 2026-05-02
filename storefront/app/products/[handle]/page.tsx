@@ -5,7 +5,7 @@ export const revalidate = 3600 // ISR: revalidate every hour
 import { medusaServerClient } from '@/lib/medusa-client'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Truck, RotateCcw, Shield, ChevronRight, Star } from 'lucide-react'
+import { Truck, RotateCcw, Shield, ChevronRight, Star, Flame } from 'lucide-react'
 import ProductActions from '@/components/product/product-actions'
 import ProductAccordion from '@/components/product/product-accordion'
 import { ProductViewTracker } from '@/components/product/product-view-tracker'
@@ -116,16 +116,16 @@ export default async function ProductPage({
   const firstVariantCurrency = firstVariant?.calculated_price?.currency_code || 'usd'
 
   return (
-    <>
+    <div className="bg-floor-warm">
       {/* Breadcrumbs */}
-      <div className="border-b">
+      <div className="border-b border-[#C9261A]/10">
         <div className="container-custom py-3">
-          <nav className="flex items-center gap-2 text-xs text-muted-foreground">
-            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+          <nav className="flex items-center gap-2 text-xs text-[#7A1F12]/70">
+            <Link href="/" className="hover:text-[#C9261A] transition-colors">Home</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/products" className="hover:text-foreground transition-colors">Shop</Link>
+            <Link href="/products" className="hover:text-[#C9261A] transition-colors">Shop</Link>
             <ChevronRight className="h-3 w-3" />
-            <span className="text-foreground">{product.title}</span>
+            <span className="text-[#C9261A] font-medium">{product.title}</span>
           </nav>
         </div>
       </div>
@@ -134,7 +134,12 @@ export default async function ProductPage({
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
           {/* Product Images */}
           <div className="space-y-3">
-            <div className="relative aspect-[3/4] overflow-hidden bg-muted rounded-sm">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-white/60 backdrop-blur-sm ring-1 ring-[#C9261A]/10 shadow-[0_20px_60px_-20px_rgba(201,38,26,0.35)]">
+              {/* Hot badge */}
+              <div className="absolute top-4 left-4 z-10 inline-flex items-center gap-1 rounded-full bg-gradient-to-br from-[#FF5A3C] to-[#C9261A] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 shadow-lg">
+                <Flame className="h-3 w-3" strokeWidth={2.5} />
+                Bestseller
+              </div>
               <Image
                 src={displayImages[0].url}
                 alt={product.title}
@@ -150,7 +155,7 @@ export default async function ProductPage({
                 {displayImages.slice(1, 5).map((image: { url: string }, idx: number) => (
                   <div
                     key={idx}
-                    className="relative aspect-[3/4] overflow-hidden bg-muted rounded-sm"
+                    className="relative aspect-[3/4] overflow-hidden rounded-xl bg-white/60 backdrop-blur-sm ring-1 ring-[#C9261A]/10 hover:ring-[#C9261A]/40 transition-all"
                   >
                     <Image
                       src={image.url}
@@ -169,28 +174,34 @@ export default async function ProductPage({
           <div className="lg:sticky lg:top-24 lg:self-start space-y-6">
             {/* Title & Subtitle */}
             <div>
+              {/* Floor brand pill */}
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-white/70 backdrop-blur-sm ring-1 ring-[#C9261A]/15 px-2.5 py-1 mb-3">
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-br from-[#FF5A3C] to-[#C9261A] text-white text-[9px] font-bold">F</span>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#C9261A]">Floor</span>
+              </div>
+
               {product.subtitle && (
-                <p className="text-sm uppercase tracking-[0.15em] text-muted-foreground mb-2">
+                <p className="text-sm uppercase tracking-[0.15em] text-[#7A1F12]/70 mb-2">
                   {product.subtitle}
                 </p>
               )}
-              <h1 className="text-h2 font-heading font-semibold">{product.title}</h1>
+              <h1 className="text-h2 font-heading font-bold text-[#3A0F08] leading-tight">{product.title}</h1>
 
               {/* Inline rating */}
               <a
                 href="#reviews"
-                className="mt-3 inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                className="mt-3 inline-flex items-center gap-2 text-xs text-[#7A1F12]/80 hover:text-[#C9261A] transition-colors"
               >
                 <span className="flex items-center gap-0.5">
                   {[1, 2, 3, 4, 5].map((i) => (
                     <Star
                       key={i}
-                      className="h-3.5 w-3.5 fill-accent text-accent"
+                      className="h-3.5 w-3.5 fill-[#FF5A3C] text-[#FF5A3C]"
                       strokeWidth={1.5}
                     />
                   ))}
                 </span>
-                <span>4.8 · 236 reviews</span>
+                <span className="font-medium">4.8 · 236 reviews</span>
               </a>
             </div>
 
@@ -203,37 +214,49 @@ export default async function ProductPage({
             />
 
             {/* Variant Selector + Price + Add to Cart (client component) */}
-            <ProductActions product={product} variantExtensions={variantExtensions} />
+            <div className="rounded-2xl bg-white/70 backdrop-blur-sm ring-1 ring-[#C9261A]/10 p-5 shadow-sm">
+              <ProductActions product={product} variantExtensions={variantExtensions} />
+            </div>
 
             {/* Bundle & Save offer */}
-            <BundleOffer
-              variantId={firstVariant?.id || null}
-              unitPrice={firstVariantPrice}
-              currency={firstVariantCurrency}
-              productTitle={product.title}
-            />
+            <div className="rounded-2xl bg-white/70 backdrop-blur-sm ring-1 ring-[#C9261A]/10 p-5 shadow-sm">
+              <BundleOffer
+                variantId={firstVariant?.id || null}
+                unitPrice={firstVariantPrice}
+                currency={firstVariantCurrency}
+                productTitle={product.title}
+              />
+            </div>
 
             {/* Trust Signals */}
-            <div className="grid grid-cols-3 gap-4 py-6 border-t">
+            <div className="grid grid-cols-3 gap-4 py-6">
               <div className="text-center">
-                <Truck className="h-5 w-5 mx-auto mb-1.5" strokeWidth={1.5} />
-                <p className="text-xs text-muted-foreground">Free Shipping</p>
+                <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 ring-1 ring-[#C9261A]/15">
+                  <Truck className="h-4 w-4 text-[#C9261A]" strokeWidth={1.8} />
+                </div>
+                <p className="text-xs font-medium text-[#7A1F12]">Free Shipping</p>
               </div>
               <div className="text-center">
-                <RotateCcw className="h-5 w-5 mx-auto mb-1.5" strokeWidth={1.5} />
-                <p className="text-xs text-muted-foreground">30-Day Returns</p>
+                <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 ring-1 ring-[#C9261A]/15">
+                  <RotateCcw className="h-4 w-4 text-[#C9261A]" strokeWidth={1.8} />
+                </div>
+                <p className="text-xs font-medium text-[#7A1F12]">30-Day Returns</p>
               </div>
               <div className="text-center">
-                <Shield className="h-5 w-5 mx-auto mb-1.5" strokeWidth={1.5} />
-                <p className="text-xs text-muted-foreground">Secure Checkout</p>
+                <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 ring-1 ring-[#C9261A]/15">
+                  <Shield className="h-4 w-4 text-[#C9261A]" strokeWidth={1.8} />
+                </div>
+                <p className="text-xs font-medium text-[#7A1F12]">Secure Checkout</p>
               </div>
             </div>
 
             {/* Accordion Sections */}
-            <ProductAccordion
-              description={product.description}
-              details={product.metadata as Record<string, string> | undefined}
-            />
+            <div className="rounded-2xl bg-white/70 backdrop-blur-sm ring-1 ring-[#C9261A]/10 p-5 shadow-sm">
+              <ProductAccordion
+                description={product.description}
+                details={product.metadata as Record<string, string> | undefined}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -246,6 +269,6 @@ export default async function ProductPage({
 
       {/* Related products */}
       <RelatedProducts currentProductId={product.id} />
-    </>
+    </div>
   )
 }
