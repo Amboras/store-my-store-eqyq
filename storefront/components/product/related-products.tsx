@@ -7,7 +7,8 @@ interface RelatedProductsProps {
   currentProductId: string
 }
 
-async function fetchRelated(currentProductId: string) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function fetchRelated(currentProductId: string): Promise<any[]> {
   try {
     const regionsResponse = await medusaServerClient.store.region.list()
     const regionId = regionsResponse.regions[0]?.id
@@ -19,7 +20,8 @@ async function fetchRelated(currentProductId: string) {
       fields: '*variants.calculated_price',
     })
 
-    return (response.products || []).filter((p) => p.id !== currentProductId).slice(0, 4)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (response.products || []).filter((p: any) => p.id !== currentProductId).slice(0, 4)
   } catch (error) {
     console.error('Error fetching related products:', error)
     return []
