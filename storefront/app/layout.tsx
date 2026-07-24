@@ -1,3 +1,4 @@
+import { PluginSlot } from '@/components/PluginSlot'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Lato, Inter } from 'next/font/google'
@@ -44,6 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${heading.variable} ${body.variable}`} suppressHydrationWarning>
       <head>
+        <PluginSlot name="head" />
         {/* PostHog cross-origin iframe recording shim — records DOM via rrweb and forwards
             events to the parent window (admin dashboard) for session replay.
             Uses rrweb@2.0.0-alpha.20 (same version proven in ecomcoder production). */}
@@ -85,7 +87,9 @@ export default function RootLayout({
             <ErrorBoundary>
               <AnalyticsProvider>
                 <MetaPixelProvider>
-                  {children}
+                  <PluginSlot name="rootProviders" />
+          {children}
+          <PluginSlot name="bodyEnd" />
                 </MetaPixelProvider>
               </AnalyticsProvider>
             </ErrorBoundary>

@@ -1,5 +1,6 @@
 'use client'
 
+import { ClientPluginSlot } from '@/components/ClientPluginSlot'
 import { useAuth } from '@/hooks/use-auth'
 import AccountLayout from '@/components/account/account-layout'
 import Link from 'next/link'
@@ -10,6 +11,7 @@ export default function AccountPage() {
 
   return (
     <AccountLayout>
+      <ClientPluginSlot name="account" context={{ email: customer?.email, customerId: customer?.id }} />
       <div>
         <h1 className="text-h2 font-heading font-semibold mb-2">
           Hello, {customer?.first_name || 'there'}
@@ -73,6 +75,7 @@ export default function AccountPage() {
           </div>
         )}
       </div>
-    </AccountLayout>
+    <ClientPluginSlot name="accountOverview" />
+      </AccountLayout>
   )
 }

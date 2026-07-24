@@ -1,5 +1,6 @@
 'use client'
 
+import { ClientPluginSlot } from '@/components/ClientPluginSlot'
 import { useEffect, useRef, useCallback } from 'react'
 import { useCart } from '@/hooks/use-cart'
 import Image from 'next/image'
@@ -226,6 +227,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             <p className="text-xs text-muted-foreground">
               Shipping and taxes calculated at checkout
             </p>
+            <ClientPluginSlot name="cartDrawerFooter" context={{ cartId: cart?.id }} />
             <Link
               href="/checkout"
               onClick={onClose}

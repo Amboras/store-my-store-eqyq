@@ -1,3 +1,5 @@
+import { ClientPluginSlot } from '@/components/ClientPluginSlot'
+import { PluginSlot } from '@/components/PluginSlot'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
@@ -256,6 +258,7 @@ export default async function ProductPage({
             {/* Variant Selector + Price + Add to Cart (client component) */}
             <div className="rounded-2xl bg-white/70 backdrop-blur-sm ring-1 ring-[#C9261A]/10 p-5 shadow-sm">
               <ProductActions product={product} variantExtensions={variantExtensions} />
+            <ClientPluginSlot name="pdpBelowAddToCart" context={{ productId: product.id }} />
             </div>
 
             {/* Bundle & Save offer */}

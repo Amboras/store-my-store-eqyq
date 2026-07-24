@@ -1,5 +1,6 @@
 'use client'
 
+import { ClientPluginSlot } from '@/components/ClientPluginSlot'
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -128,6 +129,7 @@ export default function RegisterPage() {
               'Create Account'
             )}
           </button>
+          <ClientPluginSlot name="authSignup" />
         </form>
 
         <p className="mt-8 text-center text-sm text-muted-foreground">

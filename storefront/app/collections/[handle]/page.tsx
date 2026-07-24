@@ -1,3 +1,4 @@
+import { PluginSlot } from '@/components/PluginSlot'
 import { notFound } from 'next/navigation'
 import { medusaServerClient } from '@/lib/medusa-client'
 import ProductGrid from '@/components/product/product-grid'
@@ -41,7 +42,9 @@ export default async function CollectionPage({
         </div>
       </div>
       <div className="container-custom py-8">
+        <PluginSlot name="collectionAboveGrid" />
         <ProductGrid collectionId={collection.id} limit={100} />
+        <PluginSlot name="collectionBelowGrid" />
       </div>
     </>
   )
