@@ -115,9 +115,6 @@ export default function ReviewList({ productId, perPage = 5 }: ReviewListProps) 
                 })}
               </div>
             )}
-            {review.customer_name && (
-              <p className="text-xs text-muted-foreground">— {review.customer_name}</p>
-            )}
             {review.reply && (
               <div className="mt-3 pl-4 border-l-2 border-muted">
                 <p className="text-xs font-medium mb-1">Store response</p>

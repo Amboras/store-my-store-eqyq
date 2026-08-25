@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useCreateReview, useUpdateReview, useUploadReviewMedia, useMyReviews } from '@amboras-dev/reviews'
-import { Star, ImagePlus, X } from 'lucide-react'
+import { useCreateReview, useUpdateReview, useMyReviews } from '@amboras-dev/reviews'
+import { Star } from 'lucide-react'
 import { toast } from 'sonner'
 
 interface WriteReviewProps {
@@ -10,14 +10,11 @@ interface WriteReviewProps {
   orderId?: string
 }
 
-type MediaItem = { url: string; type: 'image' | 'video' }
-
 export default function WriteReview({ productId, orderId }: WriteReviewProps) {
   const [rating, setRating] = useState(0)
   const [hovered, setHovered] = useState(0)
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const [media, setMedia] = useState<MediaItem[]>([])
   const [editingId, setEditingId] = useState<string | null>(null)
 
   // Load the customer's existing review for this order so returning to the form
@@ -27,7 +24,6 @@ export default function WriteReview({ productId, orderId }: WriteReviewProps) {
   )
   const { mutate: createReview, isPending: creating } = useCreateReview()
   const { mutate: updateReview, isPending: updating } = useUpdateReview()
-  const { mutateAsync: uploadMedia, isPending: uploading } = useUploadReviewMedia()
   const isPending = creating || updating
 
   useEffect(() => {
@@ -37,21 +33,8 @@ export default function WriteReview({ productId, orderId }: WriteReviewProps) {
       setRating(existing.rating || 0)
       setTitle(existing.title || '')
       setContent(existing.content || '')
-      setMedia(Array.isArray(existing.media) ? (existing.media as MediaItem[]) : [])
     }
   }, [myReviews, productId])
-
-  const handleFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files
-    if (!files || files.length === 0) return
-    try {
-      const uploaded = await uploadMedia(Array.from(files).slice(0, 5 - media.length))
-      setMedia((prev) => [...prev, ...uploaded].slice(0, 5) as MediaItem[])
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to upload media')
-    }
-    e.target.value = ''
-  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -62,7 +45,7 @@ export default function WriteReview({ productId, orderId }: WriteReviewProps) {
 
     if (editingId) {
       updateReview(
-        { reviewId: editingId, rating, title, content, media },
+        { reviewId: editingId, rating, title, content },
         {
           onSuccess: () => toast.success('Review updated! It will be re-checked before it goes live.'),
           onError: (err) => toast.error(err.message ?? 'Failed to update review'),
@@ -76,7 +59,7 @@ export default function WriteReview({ productId, orderId }: WriteReviewProps) {
       return
     }
     createReview(
-      { product_id: productId, order_id: orderId, rating, title, content, media },
+      { product_id: productId, order_id: orderId, rating, title, content },
       {
         onSuccess: (data) => {
           toast.success('Review submitted! Thank you.')
@@ -137,48 +120,9 @@ export default function WriteReview({ productId, orderId }: WriteReviewProps) {
         />
       </div>
 
-      {/* Photos / videos */}
-      <div className="space-y-2">
-        {media.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {media.map((m, i) => (
-              <div key={i} className="relative h-16 w-16 overflow-hidden rounded-sm border">
-                {m.type === 'video' ? (
-                  <video src={m.url} className="h-full w-full object-cover" />
-                ) : (
-                  <img src={m.url} alt="" className="h-full w-full object-cover" />
-                )}
-                <button
-                  type="button"
-                  onClick={() => setMedia((prev) => prev.filter((_, j) => j !== i))}
-                  className="absolute right-0 top-0 bg-black/60 p-0.5 text-white"
-                  aria-label="Remove media"
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-        {media.length < 5 && (
-          <label className="inline-flex cursor-pointer items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors">
-            <ImagePlus className="h-4 w-4" />
-            {uploading ? 'Uploading...' : 'Add photos or videos'}
-            <input
-              type="file"
-              accept="image/*,video/*"
-              multiple
-              className="hidden"
-              disabled={uploading || isPending}
-              onChange={handleFiles}
-            />
-          </label>
-        )}
-      </div>
-
       <button
         type="submit"
-        disabled={isPending || uploading || loadingExisting}
+        disabled={isPending || loadingExisting}
         className="w-full bg-foreground text-background py-3 text-sm font-semibold uppercase tracking-wide hover:opacity-90 transition-opacity disabled:opacity-50"
       >
         {isPending
